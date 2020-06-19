@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>焊接H型钢T型钢理论重量</title>
+
+    <style>
+        body{
+            background-color:whitesmoke;
+            color: #666;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        span{
+            color:darkblue;
+        }
+        input{
+            width: 50px;
+
+        }
+        select{
+            width: 88px;
+            height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>焊接H型钢T型钢理论重量</h2>
+    </header>
+
+    <div class="content">
+        <label for="shape">型钢类型：</label>
+        <select id="shape">
+            <option value="HShapeSteel" selected>H 型钢</option>
+            <option value="TShapeSteel">T 型钢</option>
+        </select>
+        <br /><br />
+        <label for="height">腹板高度：</label>
+        <input type="text" value="100" id="height" /> mm
+        <br />
+        <label for="beside">翼板高度：</label>
+        <input type="text" value="100" id="beside" /> mm
+        <br />
+        <label for="t1">腹板厚度：</label>
+        <input type="text" value="6" id="t1" /> mm
+        <br />
+        <label for="t2">翼板厚度：</label>
+        <input type="text" value="8" id="t2" /> mm
+        <br /><br />
+        理论重量：<span id="miweight"></span> kg/m
+        <br />
+        外表面积：<span id="miarea"></span> m<sup>2</sup>/m
+    </div>
+
+    <script>
+        // var dens = {steel: 7.85, stSteel: 7.93, copper:8.9, aluminium: 2.7, castIron: 7.3};
+        var density = 7.85;
+
+        function copyToClip(target) {
+            var transfer = document.createElement('input');
+            document.body.appendChild(transfer);
+            transfer.value = target;
+
+            transfer.focus();
+            transfer.select();
+            if (document.execCommand("Copy")) {
+                document.execCommand("Copy");
+            }
+            document.body.removeChild(transfer);
+        }
+
+        function weightH(h, b, t1, t2){
+            return ((h - t2 * 2) * t1 + (b * t2) * 2) * density / 1000;
+        }
+
+        function weightT(h, b, t1, t2){
+            return ((h - t2)* t1 + (b * t2)) * density / 1000;
+        }
+
+        function areaH(h, b, t1, t2){
+            return ((h + b) * 2 + (b - t1) * 2) / 1000 ;
+        }
+
+        function areaT(h, b, t1, t2){
+            return (h + b) *2 / 1000;
+        }
+        
+        function calculate(){
+            var h = parseFloat(document.getElementById("height").value);
+            var b = parseFloat(document.getElementById("beside").value);
+            var t1 = parseFloat(document.getElementById("t1").value);
+            var t2 = parseFloat(document.getElementById("t2").value);
+            var miweight, miarea;
+
+            var shape = document.getElementById("shape");
+            if (shape.value=="HShapeSteel"){
+                miweight = weightH(h, b, t1, t2);
+                miarea = areaH(h, b, t1, t2);
+
+            }else{
+                miweight = weightT(h, b, t1, t2);
+                miarea = areaT(h, b, t1, t2);
+            }
+            document.getElementById("miweight").innerHTML = miweight.toFixed(2);
+            document.getElementById("miarea").innerHTML = miarea.toFixed(2);
+        }
+        calculate();
+
+        document.getElementById("shape").onchange = calculate;
+        document.getElementById("height").onchange = calculate;
+        document.getElementById("beside").onchange = calculate;
+        document.getElementById("t1").onchange = calculate;
+        document.getElementById("t2").onchange = calculate;
+
+    </script>
+</body>
+</html>
