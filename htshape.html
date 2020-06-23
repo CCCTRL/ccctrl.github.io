@@ -4,55 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>焊接H型钢T型钢理论重量</title>
-
-    <style>
-        body{
-            background-color:whitesmoke;
-            color: #666;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        span{
-            color:darkblue;
-        }
-        input{
-            width: 50px;
-
-        }
-        select{
-            width: 88px;
-            height: 24px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-    <header>
-        <h2>焊接H型钢T型钢理论重量</h2>
-    </header>
+
+    <div id="vue">
+        <header>
+            <h2>焊接H型钢T型钢理论重量</h2>
+        </header>
+        <table>
+            <th></th>
+        </table>
+    </div>
 
     <div class="content">
-        <label for="shape">型钢类型：</label>
-        <select id="shape">
-            <option value="HShapeSteel" selected>H 型钢</option>
-            <option value="TShapeSteel">T 型钢</option>
-        </select>
-        <br /><br />
-        <label for="height">腹板高度：</label>
-        <input type="text" value="100" id="height" /> mm
-        <br />
-        <label for="beside">翼板高度：</label>
-        <input type="text" value="100" id="beside" /> mm
-        <br />
-        <label for="t1">腹板厚度：</label>
-        <input type="text" value="6" id="t1" /> mm
-        <br />
-        <label for="t2">翼板厚度：</label>
-        <input type="text" value="8" id="t2" /> mm
+
+        <label for="model">规格：</label>
+        <input type="text" value="100" id="model" />
         <br /><br />
         理论重量：<span id="miweight"></span> kg/m
         <br />
         外表面积：<span id="miarea"></span> m<sup>2</sup>/m
     </div>
 
+    <script src="lib/vue.js"></script>
     <script>
         // var dens = {steel: 7.85, stSteel: 7.93, copper:8.9, aluminium: 2.7, castIron: 7.3};
         var density = 7.85;
@@ -85,13 +61,21 @@
         function areaT(h, b, t1, t2){
             return (h + b) *2 / 1000;
         }
-        
+
+        function parseModel(str){
+            var h, b, t1, t2;
+            var re = /\d+|\d+\.d+/g;
+
+            console.log(str.search(re));
+            
+            return {};
+        }
+        parseModel("23*34*56*78");
+
         function calculate(){
-            var h = parseFloat(document.getElementById("height").value);
-            var b = parseFloat(document.getElementById("beside").value);
-            var t1 = parseFloat(document.getElementById("t1").value);
-            var t2 = parseFloat(document.getElementById("t2").value);
+            var modelString = document.getElementById("model").value;
             var miweight, miarea;
+
 
             var shape = document.getElementById("shape");
             if (shape.value=="HShapeSteel"){
@@ -105,14 +89,10 @@
             document.getElementById("miweight").innerHTML = miweight.toFixed(2);
             document.getElementById("miarea").innerHTML = miarea.toFixed(2);
         }
-        calculate();
+        // calculate();
 
         document.getElementById("shape").onchange = calculate;
-        document.getElementById("height").onchange = calculate;
-        document.getElementById("beside").onchange = calculate;
-        document.getElementById("t1").onchange = calculate;
-        document.getElementById("t2").onchange = calculate;
-
+        document.getElementById("model").onchange = calculate;
     </script>
 </body>
 </html>

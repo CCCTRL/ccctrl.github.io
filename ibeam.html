@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>热轧型钢</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <div id="vue">
+        <h1>{{tit}}</h1>
+        <table>
+            <tr>
+                <td>型号</td>
+                <td>理论重量</td>
+                <td>外表面积</td>
+                <td>截面面积</td>
+            </tr>
+            <tr v-for="ibeam in Ibeam">
+                <td>{{ibeam.model}}</td>
+                <td>{{ibeam.weight}}</td>
+                <td>{{ibeam.superficialArea}}</td>
+                <td>{{ibeam.sectionalArea}}</td>
+            </tr>
+        </table>
+    </div>
+    <script src="lib/vue.js"></script>
+    <script>
+        
+        var vm = new Vue({
+            el: vue,
+            data: {
+                tit: "工字钢",
+                Ibeam: [
+                    {model: "10", weight: 11.3, superficialArea: 0.432, sectionalArea: 14.33},
+                    {model: "12", weight: 14, superficialArea: 0.432, sectionalArea: 14.33},
+                    {model: "12.6", weight: 14.2, superficialArea: 0.432, sectionalArea: 14.33},
+                    {model: "14", weight: 16.9, superficialArea: 0.432, sectionalArea: 14.33},
+                    {model: "16", weight: 20.5, superficialArea: 0.432, sectionalArea: 14.33},
+                    {model: "18", weight: 24.1, superficialArea: 0.432, sectionalArea: 14.33},
+                    {model: "20a", weight: 27.9, superficialArea: 0.432, sectionalArea: 14.33},
+                    {model: "20b", weight: 31.1, superficialArea: 0.432, sectionalArea: 14.33},
+                    {model: "22a", weight: 33.1, superficialArea: 0.432, sectionalArea: 14.33},
+
+                ]
+            }
+        })
+    </script>
+</body>
+</html>

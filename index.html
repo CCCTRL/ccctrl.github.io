@@ -3,12 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>五金手册小工具</title>
+    <title>五金手册</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-    <h1>五金手册小工具</h1>
+    <div id="main_header">
+        <h1>五金手册</h1>
+    </div>
+    <div id="catalog">
+        <h2>{{catalog}}</h2>
+        <ul>
+        <li v-for="name in names">{{name.name}}</li>
+        </ul>
+    </div>
+    <div id="content">
 
+    </div>
+    <div id="main_footer">
+
+    </div>
+    
+    <script src="lib/vue.js"></script>
     <script>
+        var vm = new Vue({
+            el: '#catalog',
+            data: {
+                catalog: '型钢',
+                names: [
+                    {name: '角钢'},
+                    {name: '槽钢'},
+                    {name: '工字钢'},
+                    {name: '焊接钢管'},
+                    {name: 'H型钢'}
+                ]
+            }
+        });
 
     </script>
 </body>
